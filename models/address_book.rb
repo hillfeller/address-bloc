@@ -7,6 +7,19 @@ class AddressBook
     @entries = []
   end
 
+  def demolish_entries
+    puts "This will delete all entries in the address book. Please select 'y' in order to proceed with deletion. Please select m if you would rather return to main menu."
+    confirmation = gets.chomp
+    if confirmation == 'y'
+      @entries = []
+      puts "All entries have been deleted"
+    elsif confirmation == 'm'
+      system "clear"
+      menu_controller.main_menu
+    else
+      puts "Please choose either 'y' to proceed with deletion of all entries, or 'm' to return to main menu."
+    end
+
   def add_entry(name, phone_number, email)
     index = 0
     @entries.each do |entry|
@@ -36,25 +49,48 @@ class AddressBook
      end
   end 
 
-   def binary_search(name)
-     lower = 0
-     upper = entries.length - 1
+  def binary_search(name)
+    lower = 0
+    upper = entries.length - 1
 
  # #2
-     while lower <= upper
+    while lower <= upper
  # #3
-       mid = (lower + upper) / 2
-       mid_name = entries[mid].name
+      mid = (lower + upper) / 2
+      mid_name = entries[mid].name
  
  # #4
-       if name == mid_name
-         return entries[mid]
-       elsif name < mid_name
-         upper = mid - 1
-       elsif name > mid_name
-         lower = mid + 1
-       end
-     end
-     return nil
-   end
+      if name == mid_name
+        return entries[mid]
+      elsif name < mid_name
+        upper = mid - 1
+      elsif name > mid_name
+        lower = mid + 1
+      end
+    end
+    return nil
+  end
+
+  def delete_entry(entry)
+    @address_book.entries.delete(entry)
+    puts "#{entry.name} has been deleted"
+  end
+
+  def edit_entry(entry)
+ # #4
+    print "Updated name: "
+    name = gets.chomp
+    print "Updated phone number: "
+    phone_number = gets.chomp
+    print "Updated email: "
+    email = gets.chomp
+ # #5
+    entry.name = name if !name.empty?
+    entry.phone_number = phone_number if !phone_number.empty?
+    entry.email = email if !email.empty?
+    system "clear"
+ # #6
+    puts "Updated entry:"
+    puts entry
+  end
 end
