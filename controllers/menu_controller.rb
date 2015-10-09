@@ -22,7 +22,7 @@ class MenuController
  # #3
     selection = gets.to_i
     puts "You picked #{selection}"
-  end
+  
   case selection
     when 1
       system "clear"
@@ -92,6 +92,7 @@ class MenuController
  
     system "clear"
     puts "End of entries"
+  end
 
   def entry_submenu(entry)
  # #16
@@ -103,7 +104,7 @@ class MenuController
  # #17
     selection = $stdin.gets.chomp
  
-  case selection
+    case selection
  # #18
     when "n"
  # #19
@@ -200,6 +201,44 @@ class MenuController
       search_submenu(entry)
     end
   end
-
   
+  def edit_entry(entry)
+ # #4
+    print "Updated name: "
+    name = gets.chomp
+    print "Updated phone number: "
+    phone_number = gets.chomp
+    print "Updated email: "
+    email = gets.chomp
+ # #5
+    entry.name = name if !name.empty?
+    entry.phone_number = phone_number if !phone_number.empty?
+    entry.email = email if !email.empty?
+    system "clear"
+ # #6
+    puts "Updated entry:"
+    puts entry
+  end
+
+  def binary_search(name)
+    lower = 0
+    upper = entries.length - 1
+
+ # #2
+    while lower <= upper
+ # #3
+      mid = (lower + upper) / 2
+      mid_name = entries[mid].name
+ 
+ # #4
+      if name == mid_name
+        return entries[mid]
+      elsif name < mid_name
+        upper = mid - 1
+      elsif name > mid_name
+        lower = mid + 1
+      end
+    end
+    return nil
+  end
 end
