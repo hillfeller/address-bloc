@@ -15,10 +15,17 @@ class AddressBook
       puts "All entries have been deleted"
     elsif confirmation == 'm'
       system "clear"
+<<<<<<< HEAD
     else
       puts "Please choose either 'y' to proceed with deletion of all entries, or 'm' to return to main menu."
     end
   end
+=======
+      menu_controller.main_menu
+    else
+      puts "Please choose either 'y' to proceed with deletion of all entries, or 'm' to return to main menu."
+    end
+>>>>>>> cead0cc44009dbb0194847d9dc83e4c05fd77d62
 
   def add_entry(name, phone_number, email)
     index = 0
