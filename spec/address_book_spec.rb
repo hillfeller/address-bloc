@@ -8,6 +8,7 @@ RSpec.describe AddressBook do
     expect(entry.phone_number).to eql expected_number
     expect(entry.email).to eql expected_email
   end
+
   context ".binary_search" do
     it "searches AddressBook for a non-existent entry" do
       book.import_from_csv("entries.csv")
@@ -47,7 +48,29 @@ RSpec.describe AddressBook do
        entry = book.binary_search("Billy")
        expect(entry).to be_nil
      end
+
+     it "searches AddressBook for Hillary" do
+       book.import_from_csv("entries_2.csv")
+       entry = book.binary_search("Hillary")
+       expect entry.instance_of?(Entry)
+       check_entry(entry, "Hillary", "555-555-5555", "hillary@blocmail.com")
+     end
+
+     it "searches AddressBook for Daphne" do
+       book.import_from_csv("entries_2.csv")
+       entry = book.binary_search("Daphne")
+       expect entry.instance_of?(Entry)
+       check_entry(entry, "Daphne", "555-555-5555", "daphne@blocmail.com")
+     end
+
+     it "searches AddressBook for Ethan" do
+       book.import_from_csv("entries_2.csv")
+       entry = book.binary_search("Ethan")
+       expect entry.instance_of?(Entry)
+       check_entry(entry, "Ethan", "555-555-5555", "hillary@blocmail.com")
+     end
   end
+
   context "attributes" do
     it "should respond to entries" do
       expect(book).to respond_to(:entries)
@@ -59,6 +82,7 @@ RSpec.describe AddressBook do
       expect(book.entries.size).to eq(0)
     end
   end
+
   context ".add_entry" do
     it "adds only one entry to the address book" do
       book.add_entry('Ada Lovelace', '010.012.1815', 'augusta.king@lovelace.com')
@@ -73,6 +97,7 @@ RSpec.describe AddressBook do
       expect(new_entry.email).to eq('augusta.king@lovelace.com')
     end
   end
+
   context ".import_from_csv" do
     it "imports the correct number of entries" do
       book.import_from_csv("entries.csv")
@@ -92,27 +117,48 @@ RSpec.describe AddressBook do
        # Check the second entry
        entry_two = book.entries[1]
        check_entry(entry_two, "Bob", "555-555-5555", "bob@blocmail.com")
-     end
+    end
 
-     it "imports the 3rd entry" do
+    it "imports the 3rd entry" do
        book.import_from_csv("entries.csv")
        # Check the third entry
        entry_three = book.entries[2]
        check_entry(entry_three, "Joe", "555-555-5555", "joe@blocmail.com")
-     end
+    end
 
-     it "imports the 4th entry" do
+    it "imports the 4th entry" do
        book.import_from_csv("entries.csv")
        # Check the fourth entry
        entry_four = book.entries[3]
        check_entry(entry_four, "Sally", "555-555-5555", "sally@blocmail.com")
-     end
+    end
 
-     it "imports the 5th entry" do
+    it "imports the 5th entry" do
        book.import_from_csv("entries.csv")
        # Check the fifth entry
        entry_five = book.entries[4]
-       check_entry(entry_five, "Sussie", "555-555-5555", "sussie@blocmail.com")
-     end
+       check_entry(entry_five, "Sussie", "555-555-5555", "sussie@blocmail.com"
+    end
+
+    it "imports the 6th entry" do
+       book.import_from_csv("entries_2.csv")
+       # Check the third entry
+       entry_three = book.entries[5]
+       check_entry(entry_three, "Hillary","555-555-5555","hillary@blocmail.com")
+    end
+
+    it "imports the 7th entry" do
+       book.import_from_csv("entries_2.csv")
+       # Check the fourth entry
+       entry_four = book.entries[6]
+       check_entry(entry_four, "Daphne", "555-555-5555", "daphne@blocmail.com")
+    end
+
+    it "imports the 8th entry" do
+       book.import_from_csv("entries_2.csv")
+       # Check the fifth entry
+       entry_five = book.entries[7]
+       check_entry(entry_five, "Ethan", "555-555-5555", "ethan@blocmail.com")
+    end
   end
 end
